@@ -100,30 +100,56 @@ def linear_search(seq, searched_number):
 # print(pattern_search(dna, "GAC"))
 
 
-seq = [6, 12, 17, 23, 38, 45, 77, 84, 90]
-search_nmb = 45
-levy = 0#seq[0]
-pravy = len(seq)#[seq[-1]]
-
-while True:
-    middle = (pravy + levy) // 2
-    cislo = seq[middle]
-    if cislo < search_nmb:
-        #divam doprava, posunu levy
-        levy = middle + 1
-    elif cislo > search_nmb:
-        pravy = middle - 1
-    else:
-        print(middle)
-        print(cislo)
-        break
+# seq = [6, 12, 17, 23, 38, 45, 77, 84, 90]
+# search_nmb = 45
+# levy = 0#seq[0]
+# pravy = len(seq)#[seq[-1]]
+#
+# while True:
+#     middle = (pravy + levy) // 2
+#     cislo = seq[middle]
+#     if cislo < search_nmb:
+#         #divam doprava, posunu levy
+#         levy = middle + 1
+#     elif cislo > search_nmb:
+#         pravy = middle - 1
+#     else:
+#         print(middle)
+#         print(cislo)
+#         break
 
 #co kdyz cislo nebude? --pobezi to porad
 #chci zastavit, jak se leva rovna prave
 
 
-def binary_search(): #pozice leva a prava a pak zajem o stredy
-    pass
+def binary_search(seq, search_nmb): #pozice leva a prava a pak zajem o stredy
+    levy = 0  # seq[0]
+    pravy = len(seq)  # [seq[-1]]
+
+    while True:
+        middle = (pravy + levy) // 2
+        cislo = seq[middle]
+        if cislo < search_nmb:
+            # divam doprava, posunu levy
+            levy = middle + 1
+        elif cislo > search_nmb:
+            pravy = middle - 1
+        else:
+            return middle
+    middle = (pravy + levy) // 2
+    cislo = seq[middle]
+    if cislo < search_nmb:
+        # divam doprava, posunu levy
+        levy = middle + 1
+    elif cislo > search_nmb:
+        pravy = middle - 1
+    else:
+        return middle
+
+
+seq = [6, 12, 17, 23, 38, 45, 77, 84, 90]
+search_nmb = 6
+print(binary_search(seq, search_nmb))
 
 def main():
     pass
