@@ -151,9 +151,13 @@ seq = [6, 12, 17, 23, 38, 45, 77, 84, 90]
 search_nmb = 6
 print(binary_search(seq, search_nmb))
 
+#cyklus co puli, puli, puli, da log. slozitost a to je TOP TIER!!!
+
 def main():
     pass
 
 
 if __name__ == '__main__':
     main()
+
+
