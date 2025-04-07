@@ -59,6 +59,21 @@ def linear_search(seq, number):
 
     return {"positions":indices, "count":count,}
 
+def pattern_search(seq_dna, vzor):
+    """
+    Funkce vrátí množinu, ve které budou uloženy pozice (indexy) výskytu vzoru v sekvenci.
+    :param seq_dna:
+    :param vzor:
+    :return:
+    """
+    pozice = set()
+    idx_seq = 0
+    while idx_seq < len(seq_dna):
+        delka_vzoru = len(vzor)
+        if seq_dna[idx_seq:idx_seq+delka_vzoru] == vzor:
+            pozice.add((idx_seq, idx_seq+delka_vzoru-1))
+        idx_seq += 1
+    return pozice
 
 
 def main():
@@ -67,6 +82,12 @@ def main():
     print(seq)
     vyhledavani = linear_search(seq, 0)
     print(vyhledavani)
+    seq_dna = read_data(file_name, field="dna_sequence")
+    #print(seq_dna)
+    # seq_dna = "ATGACGGAATATAAGCTAGGTGGTGGCTGGGCAGTCCGCGCTGATAGGGCAAGAGTGCGCGTACCATACCACGCTAAGCCATATAGGGCATCAGTCAGCCTGGCA"
+    vyhledani_vzoru = pattern_search(seq_dna, "ATA")
+    print(vyhledani_vzoru)
+
 
 
 
