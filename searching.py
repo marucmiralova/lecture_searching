@@ -1,11 +1,9 @@
 import os
 import json
-
-from fontTools.cffLib.width import missingdict
+import time
 
 # get current working directory path
 cwd_path = os.getcwd()
-
 
 def read_data(file_name, field):
     """
@@ -132,12 +130,18 @@ def main():
     print(vyhledavani)
     seq_dna = read_data(file_name, field="dna_sequence")
     #print(seq_dna)
+    #start_time = time.time()
     vyhledani_vzoru = pattern_search(seq_dna, "GAC")
     print(vyhledani_vzoru)
+    #start_time = time.time()
     serazeny = read_data(file_name, field="ordered_numbers")
     print(serazeny)
+    start_time = time.time()
     binarni = binary_search(serazeny, 0)
+
     print(binarni)
+    total_time = time.time() - start_time  # Opravený výpočet času
+    print(f"Celkový čas: {total_time} sekundy")
 
 if __name__ == '__main__':
     main()
