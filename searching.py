@@ -1,6 +1,8 @@
 import os
 import json
 
+from fontTools.cffLib.width import missingdict
+
 # get current working directory path
 cwd_path = os.getcwd()
 
@@ -92,6 +94,35 @@ def pattern_search(seq, pattern):
         right_idx += 1
     return indices
 
+def binary_search(serazeny, number):
+    """
+    zjistí, zda-li se ve vzestupně seřazené posloupnosti nachází libovolné požadované číslo a vrátí jeho pozici.
+    Funkce bude mít dva vstupní parametry – prohledávaný seznam čísel a hledané číslo. Seřazený seznam
+    čísel získáte ze souboru sequential.json pod klíčem "ordered_numbers".
+    ● Funkce vrátí index, na kterém se hledané číslo v sekvenci nachází. Pokud není číslo
+    nalezeno, funkce vrátí hodnotu None.
+    ● Volání funkce a korektnost její implementace ověřte voláním z hlavní funkce main().
+    V hlavní funkci definujte také vyhledávané číslo.
+    ● Vytvořte novou revizi (commit) a změny nahrajte na svůj vzdálený repozitář (push).
+    :return: index hledaného čísla
+    """
+    # left_idx = 0
+    # delka = len(serazeny)
+    # right_idx = delka - 1
+    # left = serazeny[left_idx]
+    # right = serazeny[right_idx]
+    # middle = delka // 2
+    # while len(serazeny) > 0:
+    left, right = (0, len(serazeny)-1)
+    while left <= right:
+        middle = (right + left) // 2
+        if number < serazeny[middle]:
+            right = middle - 1
+        elif number > serazeny[middle]:
+            left = middle + 1
+        else:
+            return middle
+    return None
 
 def main():
     file_name = "sequential.json"
@@ -101,12 +132,12 @@ def main():
     print(vyhledavani)
     seq_dna = read_data(file_name, field="dna_sequence")
     #print(seq_dna)
-    # seq_dna = "ATGACGGAATATAAGCTAGGTGGTGGCTGGGCAGTCCGCGCTGATAGGGCAAGAGTGCGCGTACCATACCACGCTAAGCCATATAGGGCATCAGTCAGCCTGGCA"
     vyhledani_vzoru = pattern_search(seq_dna, "GAC")
     print(vyhledani_vzoru)
-
-
-
+    serazeny = read_data(file_name, field="ordered_numbers")
+    print(serazeny)
+    binarni = binary_search(serazeny, 0)
+    print(binarni)
 
 if __name__ == '__main__':
     main()
