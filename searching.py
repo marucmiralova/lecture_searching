@@ -59,21 +59,38 @@ def linear_search(seq, number):
 
     return {"positions":indices, "count":count,}
 
-def pattern_search(seq_dna, vzor):
-    """
-    Funkce vrátí množinu, ve které budou uloženy pozice (indexy) výskytu vzoru v sekvenci.
-    :param seq_dna:
-    :param vzor:
-    :return:
-    """
-    pozice = set()
-    idx_seq = 0
-    while idx_seq < len(seq_dna):
-        delka_vzoru = len(vzor)
-        if seq_dna[idx_seq:idx_seq+delka_vzoru] == vzor:
-            pozice.add((idx_seq, idx_seq+delka_vzoru-1))
-        idx_seq += 1
-    return pozice
+# def pattern_search(seq_dna, vzor):
+#     """
+#     Funkce vrátí množinu, ve které budou uloženy pozice (indexy) výskytu vzoru v sekvenci.
+#     :param seq_dna:
+#     :param vzor:
+#     :return:
+#     """
+#     pozice = set()
+#     idx_seq = 0
+#     while idx_seq < len(seq_dna):
+#         delka_vzoru = len(vzor)
+#         if seq_dna[idx_seq:idx_seq+delka_vzoru] == vzor:
+#             pozice.add((idx_seq, idx_seq+delka_vzoru-1))
+#         idx_seq += 1
+#     return pozice
+
+def pattern_search(seq, pattern):
+    indices = set()
+    pattern_size = len(pattern)
+    left_idx = 0
+    right_idx = pattern_size
+    while right_idx < len(seq):
+        for idx in range(pattern_size):
+            #for pro uvedomeni, ze jde o linearni vyhledavani pri porovnani dvou sekvenci
+            if pattern[idx] != seq[left_idx + idx]:
+                break
+        else:
+            indices.add(left_idx + pattern_size // 2)
+
+        left_idx += 1
+        right_idx += 1
+    return indices
 
 
 def main():
@@ -85,7 +102,7 @@ def main():
     seq_dna = read_data(file_name, field="dna_sequence")
     #print(seq_dna)
     # seq_dna = "ATGACGGAATATAAGCTAGGTGGTGGCTGGGCAGTCCGCGCTGATAGGGCAAGAGTGCGCGTACCATACCACGCTAAGCCATATAGGGCATCAGTCAGCCTGGCA"
-    vyhledani_vzoru = pattern_search(seq_dna, "ATA")
+    vyhledani_vzoru = pattern_search(seq_dna, "GAC")
     print(vyhledani_vzoru)
 
 
